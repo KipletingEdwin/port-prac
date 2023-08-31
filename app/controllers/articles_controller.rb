@@ -21,6 +21,13 @@ class ArticlesController < ApplicationController
     render json: article status: :ok
   end
 
+  def destroy
+
+    article = find_article
+    article.destroy
+    head :no_content
+  end
+
   
 
   private
@@ -31,6 +38,10 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.permit(:firstname, :lastname, :email, :phonenumber, :message)
+  end
+
+  def render_unprocessable_entity_response(exception)
+    render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
   end
 
 end
