@@ -16,6 +16,12 @@ rescue_from ActiverRecord: :RecordInvalid, with: :render_unprocessable_entity_re
         render json: article, status: :created
     end
 
+    def update
+        comment = find_comment
+        comment.update(comment_params)
+        render json: comment, status: :ok
+    end
+
     private
 
     def find_comment
