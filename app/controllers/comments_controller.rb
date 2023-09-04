@@ -22,6 +22,12 @@ rescue_from ActiverRecord: :RecordInvalid, with: :render_unprocessable_entity_re
         render json: comment, status: :ok
     end
 
+    def destroy
+        comment = find_comment
+        comment.destroy
+        head :no_content
+    end
+
     private
 
     def find_comment
